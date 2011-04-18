@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Atlas")]
 [assembly: AssemblyDescription("Application and Service Host")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Adam Mill")]
 [assembly: AssemblyProduct("Atlas")]
 [assembly: AssemblyCopyright("Copyright © Adam Miller 2010")]
 [assembly: AssemblyTrademark("")]
@@ -34,5 +34,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.66.2234")]
-[assembly: AssemblyFileVersion("1.0.66.2234")]
+[assembly: AssemblyVersion("1.0.66.2235")]
+[assembly: AssemblyFileVersion("1.0.66.2235")]
