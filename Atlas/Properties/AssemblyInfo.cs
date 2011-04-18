@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Atlas")]
 [assembly: AssemblyDescription("Application and Service Host")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Adam Mill")]
+[assembly: AssemblyCompany("Adam Miller")]
 [assembly: AssemblyProduct("Atlas")]
 [assembly: AssemblyCopyright("Copyright © Adam Miller 2010")]
 [assembly: AssemblyTrademark("")]
