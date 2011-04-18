@@ -22,7 +22,7 @@ namespace SampleAppInjectedConfig
 
                          // allows multiple instances of this service to run
                          config.AllowMultipleInstances();
-
+                         
                          // can name the service, display names and descriptions are optional
                          config.Named("TheServiceName", "Friendly Display Name", "My Service written by My Company or something");
 

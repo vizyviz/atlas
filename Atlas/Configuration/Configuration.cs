@@ -22,36 +22,62 @@ namespace Atlas.Configuration
             StartMode = ServiceStartMode.Manual;
         }
 
+        ///<summary>
+        /// Specifying a service name here will attempt to start the service if it is not running.
+        /// If the service does not start within the specified time a ServiceDependencyException is thrown and atlas will exit.
+        ///</summary>
+        ///<param name="serviceName">The name of the service to start</param>
+        ///<param name="timeToWaitForStart">The time to wait for the service to start</param>
         public Configuration<TProcessorHost> WithDependencyOnServiceNamed(string serviceName, TimeSpan timeToWaitForStart)
         {
             _dependencies.Add(new Dependency(serviceName, timeToWaitForStart));
             return this;
         }
 
-        public Configuration<TProcessorHost> AllowMultipleInstances()
-        {
-            AllowsMultipleInstances = true;
-            return this;
-        }
-
-        public Configuration<TProcessorHost> BeforeStart(Action beforeStart)
-        {
-            OnBeforeStart = beforeStart;
-            return this;
-        }
-
+        ///<summary>
+        /// Specifying a service name here will attempt to start the service if it is not running.
+        /// If the service does not start within the default 15 seconds a ServiceDependencyException is thrown and atlas will exit.
+        ///</summary>
+        ///<param name="serviceName">The name of the service to start</param>
         public Configuration<TProcessorHost> WithDependencyOnServiceNamed(string serviceName)
         {
             _dependencies.Add(new Dependency(serviceName));
             return this;
         }
 
+        ///<summary>
+        /// Allows multiple instances of this service to run, default is to not allow multiple instances
+        ///</summary>
+        public Configuration<TProcessorHost> AllowMultipleInstances()
+        {
+            AllowsMultipleInstances = true;
+            return this;
+        }
+
+        ///<summary>
+        /// Performs the specified action before atlas starts your service.
+        ///</summary>
+        public Configuration<TProcessorHost> BeforeStart(Action beforeStart)
+        {
+            OnBeforeStart = beforeStart;
+            return this;
+        }
+        
+        ///<summary>
+        /// Autofac registrations of any dependencies that my service may have or use.
+        /// These dependencies are property injected into your service.
+        /// If your service uses constructor injection re-register your service as IAmAHostedProcess here.
+        ///</summary>
         public Configuration<TProcessorHost> WithRegistrations(Action<ContainerBuilder> registrations)
         {
             Registrations = registrations;
             return this;
         }
 
+        ///<summary>
+        /// Allows you to inject the command line arguments into your atlas.  These arguments override the run mode (console or service), and installation parameters.
+        /// Account, Startup, Username, Password, etc.
+        ///</summary>
         public Configuration<TProcessorHost> WithArguments(string[] args)
         {
             var arguments = new Arguments(args);
@@ -64,6 +90,9 @@ namespace Atlas.Configuration
             return this;
         }
 
+        ///<summary>
+        /// Allows you to specify the name the service.  Display names and descriptions are optional.
+        ///</summary>
         public Configuration<TProcessorHost> Named(string serviceName, string displayName = "", string description = "")
         {
             Name = serviceName;
