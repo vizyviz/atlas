@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{381883F1-9839-4E16-8E2E-4F9A590C0690}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Atlas</RootNamespace>
+    <AssemblyName>Atlas</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\atlas.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=2.4.5.724, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.2.4.5.724\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration, Version=2.4.5.724, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.2.4.5.724\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Arguments.cs" />
+    <Compile Include="Configuration\XmlConfiguration.cs" />
+    <Compile Include="Runners\ConsoleRunner.cs" />
+    <Compile Include="Console\ConsoleWrapper.cs" />
+    <Compile Include="Console\IWrapConsole.cs" />
+    <Compile Include="Configuration\Dependency.cs" />
+    <Compile Include="Host.Configuration.cs" />
+    <Compile Include="Factories\ICreateInitializationStrategies.cs" />
+    <Compile Include="IAmAHostedProcess.cs" />
+    <Compile Include="Initialization\IInitializeTheHost.cs" />
+    <Compile Include="Installation\IInstaller.cs" />
+    <Compile Include="Installation\IInstallerFactory.cs" />
+    <Compile Include="Initialization\InstallAndStartInitialization.cs" />
+    <Compile Include="Installation\BaseInstaller.cs" />
+    <Compile Include="Installation\Installer.cs" />
+    <Compile Include="Installation\InstallMode.cs" />
+    <Compile Include="Helpers\IMonitorProcesses.cs" />
+    <Compile Include="Installation\UnInstaller.cs" />
+    <Compile Include="Installation\InstallerFactory.cs" />
+    <Compile Include="Initialization\InstallInitialization.cs" />
+    <Compile Include="Factories\IntitializationStrategyFactory.cs" />
+    <Compile Include="Runners\IServiceRunner.cs" />
+    <Compile Include="Factories\IServiceRunnerFactory.cs" />
+    <Compile Include="Helpers\IStartServices.cs" />
+    <Compile Include="Installation\NoOpInstaller.cs" />
+    <Compile Include="Helpers\ProcessMonitor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Initialization\RunInitialization.cs" />
+    <Compile Include="Runners\RunMode.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Host.cs" />
+    <Compile Include="HostModule.cs" />
+    <Compile Include="Configuration\ServiceDependencyException.cs" />
+    <Compile Include="Runners\ServiceRunner.cs" />
+    <Compile Include="ContainerProvider.cs" />
+    <Compile Include="Factories\ServiceRunnerFactory.cs" />
+    <Compile Include="Helpers\ServiceStarter.cs" />
+    <Compile Include="WindowsService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WindowsService.Designer.cs">
+      <DependentUpon>WindowsService.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\atlas.snk">
+      <Link>atlas.snk</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
