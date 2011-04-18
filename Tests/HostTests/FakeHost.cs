@@ -10,7 +10,7 @@ namespace Tests.HostTests
         {
         }
 
-        public override void Run<TProcessorHost>(Configuration<TProcessorHost> configuration)
+        public override void Run<THostedProcess>(Configuration<THostedProcess> configuration)
         {
             Ran = true;
         }

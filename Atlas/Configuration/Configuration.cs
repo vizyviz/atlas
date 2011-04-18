@@ -7,7 +7,7 @@ using Autofac;
 
 namespace Atlas.Configuration
 {
-    public class Configuration<TProcessorHost>
+    public class Configuration<THostedProcess>
     {
         private IList<Dependency> _dependencies;
 
@@ -28,7 +28,7 @@ namespace Atlas.Configuration
         ///</summary>
         ///<param name="serviceName">The name of the service to start</param>
         ///<param name="timeToWaitForStart">The time to wait for the service to start</param>
-        public Configuration<TProcessorHost> WithDependencyOnServiceNamed(string serviceName, TimeSpan timeToWaitForStart)
+        public Configuration<THostedProcess> WithDependencyOnServiceNamed(string serviceName, TimeSpan timeToWaitForStart)
         {
             _dependencies.Add(new Dependency(serviceName, timeToWaitForStart));
             return this;
@@ -39,7 +39,7 @@ namespace Atlas.Configuration
         /// If the service does not start within the default 15 seconds a ServiceDependencyException is thrown and atlas will exit.
         ///</summary>
         ///<param name="serviceName">The name of the service to start</param>
-        public Configuration<TProcessorHost> WithDependencyOnServiceNamed(string serviceName)
+        public Configuration<THostedProcess> WithDependencyOnServiceNamed(string serviceName)
         {
             _dependencies.Add(new Dependency(serviceName));
             return this;
@@ -48,7 +48,7 @@ namespace Atlas.Configuration
         ///<summary>
         /// Allows multiple instances of this service to run, default is to not allow multiple instances
         ///</summary>
-        public Configuration<TProcessorHost> AllowMultipleInstances()
+        public Configuration<THostedProcess> AllowMultipleInstances()
         {
             AllowsMultipleInstances = true;
             return this;
@@ -57,7 +57,7 @@ namespace Atlas.Configuration
         ///<summary>
         /// Performs the specified action before atlas starts your service.
         ///</summary>
-        public Configuration<TProcessorHost> BeforeStart(Action beforeStart)
+        public Configuration<THostedProcess> BeforeStart(Action beforeStart)
         {
             OnBeforeStart = beforeStart;
             return this;
@@ -68,7 +68,7 @@ namespace Atlas.Configuration
         /// These dependencies are property injected into your service.
         /// If your service uses constructor injection re-register your service as IAmAHostedProcess here.
         ///</summary>
-        public Configuration<TProcessorHost> WithRegistrations(Action<ContainerBuilder> registrations)
+        public Configuration<THostedProcess> WithRegistrations(Action<ContainerBuilder> registrations)
         {
             Registrations = registrations;
             return this;
@@ -78,7 +78,7 @@ namespace Atlas.Configuration
         /// Allows you to inject the command line arguments into your atlas.  These arguments override the run mode (console or service), and installation parameters.
         /// Account, Startup, Username, Password, etc.
         ///</summary>
-        public Configuration<TProcessorHost> WithArguments(string[] args)
+        public Configuration<THostedProcess> WithArguments(string[] args)
         {
             var arguments = new Arguments(args);
             RunMode = arguments.RunMode;
@@ -93,7 +93,7 @@ namespace Atlas.Configuration
         ///<summary>
         /// Allows you to specify the name the service.  Display names and descriptions are optional.
         ///</summary>
-        public Configuration<TProcessorHost> Named(string serviceName, string displayName = "", string description = "")
+        public Configuration<THostedProcess> Named(string serviceName, string displayName = "", string description = "")
         {
             Name = serviceName;
             DisplayName = displayName;
@@ -106,7 +106,7 @@ namespace Atlas.Configuration
             var builder = new ContainerBuilder();
             builder.RegisterModule(new HostModule());
 
-            builder.RegisterType(typeof(TProcessorHost))
+            builder.RegisterType(typeof(THostedProcess))
                 .As<IAmAHostedProcess>()
                 .OnActivated(a => a.Context.InjectUnsetProperties(a.Instance));
 

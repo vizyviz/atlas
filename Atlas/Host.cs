@@ -13,7 +13,7 @@ namespace Atlas
             _initilaizationStrategyFactory = initilaizationStrategyFactory;
         }
 
-        public virtual void Run<TProcessorHost>(Configuration<TProcessorHost> configuration)
+        public virtual void Run<THostedProcess>(Configuration<THostedProcess> configuration)
         {
             foreach (var dependency in configuration.Dependencies)
             {
@@ -25,7 +25,7 @@ namespace Atlas
             _initilaizationStrategyFactory.Create(configuration.InstallMode).Initialize(configuration);
         }
 
-        private static void UpdateRegistrations<TProcessorHost>(Configuration<TProcessorHost> configuration)
+        private static void UpdateRegistrations<THostedProcess>(Configuration<THostedProcess> configuration)
         {
             if (configuration.Registrations != null)
             {
