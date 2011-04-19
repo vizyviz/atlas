@@ -14,6 +14,10 @@ namespace Atlas.Initialization
 
         public void Initialize<TProcessorHost>(Configuration<TProcessorHost> configuration)
         {
+            if(configuration.OnBeforeStart != null)
+            {
+                configuration.OnBeforeStart();
+            }
             _serviceRunnerFactory.Create(configuration.RunMode).Run();
         }
     }

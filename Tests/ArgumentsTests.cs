@@ -193,6 +193,21 @@ namespace Tests
         }
 
         [Test]
+        public void ArgumentsTogether2()
+        {
+            var actual =
+                new Arguments(new[]
+                                  {
+                                      "-install -start -startup=automatic"
+                                  });
+
+            Assert.AreEqual(RunMode.Service, actual.RunMode);
+            Assert.AreEqual(InstallMode.InstallAndStart, actual.InstallMode);
+            Assert.AreEqual(ServiceStartMode.Automatic, actual.StartMode);
+            Assert.AreEqual(ServiceAccount.LocalSystem, actual.Account);
+        }
+
+        [Test]
         public void Split()
         {
             string tosplit =
