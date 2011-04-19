@@ -23,7 +23,7 @@ namespace Atlas.Installation
 
             baseInstaller.Account = configuration.Account;
             baseInstaller.ServiceName = configuration.Name;
-            baseInstaller.DisplayName = configuration.Name;
+            baseInstaller.DisplayName = configuration.DisplayName;
             baseInstaller.Description = configuration.Description;
             baseInstaller.StartType = configuration.StartMode;
             baseInstaller.Username = configuration.UserName;

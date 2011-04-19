@@ -44,9 +44,9 @@ namespace Atlas
         ///<returns>Configuration with settings from lambda expression overriding settings with arguments</returns>
         public static Configuration<THostedProcess> Configure<THostedProcess>(Action<Configuration<THostedProcess>> configuration, string[] arguments) where THostedProcess : IAmAHostedProcess
         {
-            var argument = new Arguments(arguments);
             var config = new Configuration<THostedProcess>();
             configuration.Invoke(config);
+            var argument = new Arguments(arguments);
             config.RunMode = argument.RunMode;
             config.InstallMode = argument.InstallMode;
             config.Account = argument.Account;
@@ -92,7 +92,7 @@ namespace Atlas
             }
 
             ContainerProvider.Instance.ApplicationContainer = configuration.Compile();
-
+            
             var hostInstance = ContainerProvider.Instance.ApplicationContainer.Resolve<Host>();
 
             hostInstance.Run(configuration);

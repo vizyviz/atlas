@@ -16,7 +16,7 @@ namespace SampleLibrary
         public void DoStuff(string message)
         {
             File.AppendAllText(_filePath,
-                               string.Format("{0} - DoStuff called at {1} with message {2}",
+                               string.Format("{0} - DoStuff called at {1} with message {2}\r\n",
                                              Thread.CurrentThread.ManagedThreadId,
                                              DateTime.Now, message));
         }

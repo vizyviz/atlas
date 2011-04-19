@@ -12,14 +12,13 @@ namespace SampleAppInjectedConfig
         {
             // all configuration settings are optional
             // var configuration = Host.Configure<MyService>(); will use all defaults.
-            var cong = Host.Configure<MyService>().WithArguments(args);
 
             var configuration = Host.Configure<MyService>
                 (config =>
                      {
                          // Autofac registrations of any dependencies that my service may have or use.
                          config.WithRegistrations(
-                             b => b.Register(c => new SomeService(Path.GetFullPath(Environment.CurrentDirectory))));
+                             b => b.Register(c => new SomeService(Path.Combine(Environment.CurrentDirectory, "output.txt"))).As<IServiceForDoingStuff>());
 
                          // allows multiple instances of this service to run
                          config.AllowMultipleInstances();
@@ -32,7 +31,7 @@ namespace SampleAppInjectedConfig
 
                          // can tell atlas that in order for my service to run I require that this other service is started
                          // will attempt to start the service if it is not running, there is an overload to provide a time in seconds to wait
-                         config.WithDependencyOnServiceNamed("");
+                         config.WithDependencyOnServiceNamed("MSSQLSERVER");
 
                          // can optionally pass the command line arguments into Atlas.  If no arguments are passed in, default arguments are used.
                          config.WithArguments(args);

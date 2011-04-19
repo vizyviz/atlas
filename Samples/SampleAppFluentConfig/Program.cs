@@ -15,7 +15,7 @@ namespace SampleAppFluentConfig
 
             var configuration = Host.Configure<MyService>()
                 // Autofac registrations of any dependencies that my service may have or use.
-                .WithRegistrations(b => b.Register(c => new SomeService(Path.GetFullPath(Environment.CurrentDirectory))))
+                .WithRegistrations(b => b.Register(c => new SomeService(Path.Combine(Environment.CurrentDirectory, "output.txt"))).As<IServiceForDoingStuff>())
 
                 // allows multiple instances of this service to run
                 .AllowMultipleInstances()
