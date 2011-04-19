@@ -26,9 +26,9 @@ namespace Atlas
 
         internal Arguments(IEnumerable<string> args)
         {
-            foreach (var kp in string.Join(" ", args).Split(' ').Select(s => s.Split(new[] {'='})))
+            foreach (var kp in string.Join(" ", args).Split(' ').Select(s => s.Split(new[] { '=' })))
             {
-                _args.Add(kp[0].TrimStart(new[] { '/', '-' }), kp.Length > 1 ? kp[1] : string.Empty);
+                _args.Add(kp[0].TrimStart(new[] { '/', '-' }).ToLower(), kp.Length > 1 ? kp[1] : string.Empty);
             }
         }
 
@@ -129,7 +129,7 @@ namespace Atlas
 
         private ServiceStartMode ParseStartMode()
         {
-            switch (_args[STARTMODE_KEY.ToLower()])
+            switch (_args[STARTMODE_KEY].ToLower())
             {
                 case "disabled":
                     return ServiceStartMode.Disabled;

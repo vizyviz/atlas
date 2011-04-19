@@ -19,8 +19,11 @@ namespace Tests
 
         [TestCase("/console")]
         [TestCase("-console")]
+        [TestCase("-CONSOLE")]
+        [TestCase("-cOnsole")]
         [TestCase("-c")]
         [TestCase("/c")]
+        [TestCase("/C")]
         public void OneArgEqualToConsoleReturnsConsole(string arg)
         {
             var actual = new Arguments(new[] { arg });
@@ -36,7 +39,9 @@ namespace Tests
 
         [TestCase("/install")]
         [TestCase("-install")]
+        [TestCase("-INStall")]
         [TestCase("-i")]
+        [TestCase("-I")]
         [TestCase("/i")]
         public void OneArgEqualToInstallReturnsInstallAndIsRunningAsService(string arg)
         {
@@ -46,12 +51,14 @@ namespace Tests
         }
 
         [TestCase("/install", "-start")]
+        [TestCase("/install", "-START")]
         [TestCase("-install", "-start")]
         [TestCase("/i", "-start")]
         [TestCase("-i", "-start")]
         [TestCase("/install", "/start")]
         [TestCase("-install", "/start")]
         [TestCase("/i", "/start")]
+        [TestCase("/I", "/stArt")]
         [TestCase("-i", "/start")]
         public void OneArgEqualToInstallStartReturnsInstallAndStartAndIsRunningAsService(string arg1, string arg2)
         {
@@ -65,9 +72,11 @@ namespace Tests
         }
 
         [TestCase("/uninstall")]
+        [TestCase("/unInStaLL")]
         [TestCase("-uninstall")]
         [TestCase("-u")]
         [TestCase("/u")]
+        [TestCase("/U")]
         public void OneArgEqualToUnInstallReturnsUnInstall(string arg)
         {
             var actual = new Arguments(new[] { arg });
@@ -89,6 +98,7 @@ namespace Tests
         }
 
         [TestCase("networkservice", ServiceAccount.NetworkService)]
+        [TestCase("LocAlsyStem", ServiceAccount.LocalSystem)]
         [TestCase("localsystem", ServiceAccount.LocalSystem)]
         [TestCase("localservice", ServiceAccount.LocalService)]
         [TestCase("user", ServiceAccount.User)]
@@ -106,6 +116,7 @@ namespace Tests
         }
 
         [TestCase("manual", ServiceStartMode.Manual)]
+        [TestCase("disABled", ServiceStartMode.Disabled)]
         [TestCase("disabled", ServiceStartMode.Disabled)]
         [TestCase("automatic", ServiceStartMode.Automatic)]
         public void SettingStartModeParsesCorreclty(string startup, ServiceStartMode expected)
@@ -129,6 +140,13 @@ namespace Tests
         }
 
         [Test]
+        public void SettingUserNameIgnoresCaseOfArgumentKeyIsEqualToUserNameProvided()
+        {
+            var actual = new Arguments(new[] { "/useRnaMe=myuser" });
+            Assert.AreEqual("myuser", actual.UserName);
+        }
+
+        [Test]
         public void NotSettinPasswordIsEmptyString()
         {
             var actual = new Arguments(new[] { "" });
@@ -141,6 +159,14 @@ namespace Tests
             var actual = new Arguments(new[] { "/password=mypassword" });
             Assert.AreEqual("mypassword", actual.Password);
         }
+
+        [Test]
+        public void SettingPasswordIgnoresCaseOfArgumentKeyIsEqualToPasswordProvided()
+        {
+            var actual = new Arguments(new[] { "/passWorD=mypassword" });
+            Assert.AreEqual("mypassword", actual.Password);
+        }
+
 
         [Test]
         public void ConsolesInstallModeIsIgnored()

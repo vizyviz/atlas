@@ -12,6 +12,7 @@ namespace SampleAppInjectedConfig
         {
             // all configuration settings are optional
             // var configuration = Host.Configure<MyService>(); will use all defaults.
+            var cong = Host.Configure<MyService>().WithArguments(args);
 
             var configuration = Host.Configure<MyService>
                 (config =>
