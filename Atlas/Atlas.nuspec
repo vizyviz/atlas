@@ -9,6 +9,6 @@
     <projectUrl>http://atlas.codeplex.com/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <tags>Windows Service, Console Application, Host</tags>
+    <tags>WindowsService, ConsoleApplication, Host</tags>
   </metadata>
 </package>
