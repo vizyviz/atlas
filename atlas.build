@@ -4,9 +4,10 @@
 
   <property name="system.directory" value="${project::get-base-directory()}" unless="${property::exists('system.directory')}"/>
   <property name="system.tools.directory" value="${system.directory}\Tools" />
+  <property name="MSBuildPath" value="C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" />
   <property name="nunit.exe.directory" value="${system.directory}\packages\nunit.2.5.9.10348\Tools\" />
   <property name="atlas.solution.name" value="Atlas.sln" />
-  
+   
   <property name="product.name" value="Atlas" />
 
   <!-- ******************************************************************** -->
