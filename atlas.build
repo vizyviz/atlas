@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<project name="Atlas" default="atlas.build" basedir="." xmlns="http://nant.sf.net/release/0.85/nant.xsd">
+  <description>Build File for Atlas</description>
+
+  <property name="system.directory" value="${project::get-base-directory()}" unless="${property::exists('system.directory')}"/>
+  <property name="system.tools.directory" value="${system.directory}\Tools" />
+  <property name="nunit.exe.directory" value="${system.directory}\packages\nunit.2.5.9.10348\Tools\" />
+  <property name="atlas.solution.name" value="Atlas.sln" />
+  
+  <property name="product.name" value="Atlas" />
+
+  <!-- ******************************************************************** -->
+  <!--                               MAIN TARGETS                           -->
+  <!-- ******************************************************************** -->
+  <target name="atlas.build" depends="atlas.compile.solution, atlas.tests" description="Builds Atlas product" />
+    
+  <!-- ******************************************************************** -->
+  <!--                             SHORTCUT TARGETS                         -->
+  <!-- ******************************************************************** -->
+  <target name="atlas.tests" depends="atlas.unit.tests" description="Tests Atlas product" />
+  <target name="atlas.compile" depends="atlas.compile.solution" />
+
+  <!-- ******************************************************************** -->
+  <target name="atlas.compile.solution">
+    <property name="strong.name.solution" value="false" />
+	
+	<delete>
+		<fileset basedir="${system.directory}\testsOutput\">
+			<include name="**/*" />
+		</fileset>
+	</delete>
+	
+	<fileset id="assemblyinfo.fileset" basedir="${system.directory}">
+        <include name="**/*/AssemblyInfo.cs" />
+    </fileset>
+
+	<call target="version.assemblies"/>
+	
+    <msbuild project="${system.directory}\${atlas.solution.name}" >
+      <arg value="/verbosity:quiet" />
+      <arg value="/p:Configuration=${solution.configuration}" />
+    </msbuild>
+	
+  </target> 
+  
+  <!-- ******************************************************************** -->
+	<target name="atlas.unit.tests">
+	  
+		<property name="test.directory" value="${system.directory}\testsOutput\" />
+		
+		<fileset id="test.dll.fileset" basedir="${test.directory}">
+			<include name="*tests*.dll"/>
+			<include name="*Tests*.dll" />
+		</fileset>
+		
+		<property name="results.directory" value="${test.directory}\results" />
+		
+		<call target="run.unit.tests.fileset" />
+	  
+	</target>
+  
+	<!-- nUnit Tests -->
+	<target name="run.unit.tests.fileset">
+		<property name="test.files" value=""/>
+		<property name="results.file" value="${results.directory}\results.xml" />
+		
+		<delete dir="${results.directory}" if="${directory::exists(results.directory)}" failonerror="true" />
+		<mkdir dir="${results.directory}" failonerror="true" />
+		
+		<foreach item="File" property="test.dll">
+			<in>
+				<items refid="test.dll.fileset" />
+			</in>
+			<do>
+				<property name="test.files" value="${test.files} &quot;${test.dll}&quot;"/>
+			</do>
+		</foreach>
+		
+		<exec program="${nunit.exe.directory}\nunit-console.exe" workingdir="${test.directory}">
+			<arg value="${test.files}" />
+			<arg value="/xml:${results.file}"/>
+			<arg value="/nologo"/>
+		</exec>
+	</target>
+  
+	<!-- Assembly Versioning -->
+	<property name="solution.configuration" value="Debug" />
+	<property name="solution.configuration" value="${build.configuration}" if="${property::exists('build.configuration')}" />
+	<property name="solution.path" value="" />
+	<property name="build.type" value="debug" />
+	<property name="strong.name.assembly" value="false" />
+	
+	<target name="version.assemblies">		
+		<if test="${solution.configuration != 'Debug'}">
+			<echo message="********************************************************************"/>
+			<echo message="Updating version numbers" />
+			
+			<foreach item="File" property="assembly.info">
+				<in>
+					<items refid="assemblyinfo.fileset" />
+				</in>
+				<do>
+					<echo message=""/>
+					<echo message="Updating: ${assembly.info}" />
+					<exec program="${system.tools.directory}\UpdateVersion\UpdateVersion.exe" commandline="-b BuildDay -r Increment -v Assembly -i &quot;${assembly.info}&quot; -o &quot;${assembly.info}&quot;" verbose="true" workingdir="${system.directory}" />
+					<exec program="${system.tools.directory}\UpdateVersion\UpdateVersion.exe" commandline="-b BuildDay -r Increment -v File -i &quot;${assembly.info}&quot; -o &quot;${assembly.info}&quot;" verbose="true" workingdir="${system.directory}" />
+					<echo message=""/>
+				</do>
+			</foreach>
+			<echo message="********************************************************************"/>
+		</if>	
+	</target>    
+  
+</project>
