@@ -23,21 +23,21 @@
   <!-- ******************************************************************** -->
   <target name="atlas.compile.solution">
     <property name="strong.name.solution" value="false" />
-	
-	<delete>
-		<fileset basedir="${system.directory}\testsOutput\">
-			<include name="**/*" />
-		</fileset>
-	</delete>
-	
+		
 	<fileset id="assemblyinfo.fileset" basedir="${system.directory}">
         <include name="**/*/AssemblyInfo.cs" />
     </fileset>
 
 	<call target="version.assemblies"/>
 	
+	<delete>
+		<fileset basedir="${system.directory}\testsOutput\">
+			<include name="**/*" />
+		</fileset>
+	</delete>
+		
     <msbuild project="${system.directory}\${atlas.solution.name}" >
-      <arg value="/verbosity:quiet" />
+      <!-- <arg value="/verbosity:quiet" /> -->
       <arg value="/p:Configuration=${solution.configuration}" />
     </msbuild>
 	
