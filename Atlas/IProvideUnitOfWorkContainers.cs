@@ -4,7 +4,7 @@ namespace Atlas
 {
     public interface IProvideUnitOfWorkContainers
     {
-        IProvideUnitOfWorkContainers Instance { get; set; }
+        IProvideUnitOfWorkContainers Instance { get; }
         IContainer ApplicationContainer { get; set; }
         ILifetimeScope CreateUnitOfWorkContainer();
     }

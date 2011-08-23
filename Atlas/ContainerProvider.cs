@@ -20,6 +20,7 @@ namespace Atlas
                 }
                 return _instance;
             }
+            set { _instance = value; }
         }
 
         public IContainer ApplicationContainer { get; set; }
@@ -32,7 +33,6 @@ namespace Atlas
         IProvideUnitOfWorkContainers IProvideUnitOfWorkContainers.Instance
         {
             get { return Instance; }
-            set { _instance = value; }
         }
     }
 }
