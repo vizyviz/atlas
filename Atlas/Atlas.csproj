@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Arguments.cs" />
     <Compile Include="Configuration\XmlConfiguration.cs" />
+    <Compile Include="IProvideUnitOfWorkContainers.cs" />
     <Compile Include="Runners\ConsoleRunner.cs" />
     <Compile Include="Console\ConsoleWrapper.cs" />
     <Compile Include="Console\IWrapConsole.cs" />

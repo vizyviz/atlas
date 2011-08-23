@@ -11,7 +11,7 @@ namespace Tests
     public class ContainerProviderTests
     {
         private IContainer _applicationContainer;
-        private ContainerProvider _provider;
+        private IProvideUnitOfWorkContainers _provider;
 
         [SetUp]
         public void Setup()

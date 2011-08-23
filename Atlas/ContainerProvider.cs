@@ -2,7 +2,7 @@
 
 namespace Atlas
 {
-    public class ContainerProvider
+    public class ContainerProvider : IProvideUnitOfWorkContainers
     {
         private static ContainerProvider _instance;
 
@@ -10,7 +10,7 @@ namespace Atlas
         {
         }
 
-        public static ContainerProvider Instance
+        public static IProvideUnitOfWorkContainers Instance
         {
             get
             {
@@ -27,6 +27,11 @@ namespace Atlas
         public ILifetimeScope CreateUnitOfWorkContainer()
         {
             return ApplicationContainer.BeginLifetimeScope();
+        }
+
+        IProvideUnitOfWorkContainers IProvideUnitOfWorkContainers.Instance
+        {
+            get { return Instance; }
         }
     }
 }
