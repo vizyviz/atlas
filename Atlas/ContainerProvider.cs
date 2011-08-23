@@ -4,7 +4,7 @@ namespace Atlas
 {
     public class ContainerProvider : IProvideUnitOfWorkContainers
     {
-        private static ContainerProvider _instance;
+        private static IProvideUnitOfWorkContainers _instance;
 
         private ContainerProvider()
         {
@@ -32,6 +32,7 @@ namespace Atlas
         IProvideUnitOfWorkContainers IProvideUnitOfWorkContainers.Instance
         {
             get { return Instance; }
+            set { _instance = value; }
         }
     }
 }
