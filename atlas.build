@@ -4,7 +4,7 @@
 
   <property name="system.directory" value="${project::get-base-directory()}" unless="${property::exists('system.directory')}"/>
   <property name="system.tools.directory" value="${system.directory}\Tools" />
-  <property name="nunit.exe.directory" value="${system.directory}\packages\nunit.2.5.9.10348\Tools\" />
+  <property name="nunit.exe.directory" value="${system.directory}\packages\NUnit.2.5.10.11092\Tools\" />
   <property name="atlas.solution.name" value="Atlas.sln" />
    
   <property name="product.name" value="Atlas" />
@@ -37,7 +37,6 @@
 	</delete>
 		
     <msbuild project="${system.directory}\${atlas.solution.name}" >
-      <!-- <arg value="/verbosity:quiet" /> -->
       <arg value="/p:Configuration=${solution.configuration}" />
     </msbuild>
 	
