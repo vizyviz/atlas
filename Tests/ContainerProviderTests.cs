@@ -11,7 +11,7 @@ namespace Tests
     public class ContainerProviderTests
     {
         private IContainer _applicationContainer;
-        private IProvideUnitOfWorkContainers _provider;
+        private IContainerProvider _provider;
 
         [SetUp]
         public void Setup()
@@ -33,7 +33,7 @@ namespace Tests
             ILifetimeScope unitOfWorkContainer = new LifetimeScope(new ComponentRegistry());
 
             _applicationContainer.Expect(ac => ac.BeginLifetimeScope()).Return(unitOfWorkContainer);
-            var actual = _provider.CreateUnitOfWorkContainer();
+            var actual = _provider.CreateUnitOfWork();
 
             Assert.AreNotSame(actual, _applicationContainer);
 

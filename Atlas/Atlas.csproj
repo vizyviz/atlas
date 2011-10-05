@@ -58,7 +58,8 @@
   <ItemGroup>
     <Compile Include="Arguments.cs" />
     <Compile Include="Configuration\XmlConfiguration.cs" />
-    <Compile Include="IProvideUnitOfWorkContainers.cs" />
+    <Compile Include="IContainerProvider.cs" />
+    <Compile Include="IUnitOfWorkContainer.cs" />
     <Compile Include="Runners\ConsoleRunner.cs" />
     <Compile Include="Console\ConsoleWrapper.cs" />
     <Compile Include="Console\IWrapConsole.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="ContainerProvider.cs" />
     <Compile Include="Factories\ServiceRunnerFactory.cs" />
     <Compile Include="Helpers\ServiceStarter.cs" />
+    <Compile Include="UnitOfWorkContainer.cs" />
     <Compile Include="WindowsService.cs">
       <SubType>Component</SubType>
     </Compile>

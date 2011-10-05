@@ -2,15 +2,21 @@
 
 namespace Atlas
 {
-    public class ContainerProvider : IProvideUnitOfWorkContainers
+    /// <summary>
+    /// Provides access to the application's container, and methods to manage units of work within your system
+    /// </summary>
+    public class ContainerProvider : IContainerProvider
     {
-        private static IProvideUnitOfWorkContainers _instance;
+        private static IContainerProvider _instance;
 
         private ContainerProvider()
         {
         }
 
-        public static IProvideUnitOfWorkContainers Instance
+        /// <summary>
+        /// Gets the instance of the container provider
+        /// </summary>
+        public static IContainerProvider Instance
         {
             get
             {
@@ -23,16 +29,20 @@ namespace Atlas
             set { _instance = value; }
         }
 
+        IContainerProvider IContainerProvider.Instance { get { return Instance; } }
+
+        /// <summary>
+        /// The application's outer container
+        /// </summary>
         public IContainer ApplicationContainer { get; set; }
 
-        public ILifetimeScope CreateUnitOfWorkContainer()
+        /// <summary>
+        /// Creates a unit of work to provide scope around the application container
+        /// </summary>
+        /// <returns></returns>
+        public IUnitOfWorkContainer CreateUnitOfWork()
         {
-            return ApplicationContainer.BeginLifetimeScope();
-        }
-
-        IProvideUnitOfWorkContainers IProvideUnitOfWorkContainers.Instance
-        {
-            get { return Instance; }
+            return new UnitOfWorkContainer(ApplicationContainer.BeginLifetimeScope());
         }
     }
 }
