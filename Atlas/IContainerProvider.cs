@@ -1,3 +1,4 @@
+using System;
 using Autofac;
 
 namespace Atlas
@@ -10,5 +11,6 @@ namespace Atlas
         IContainerProvider Instance { get; }
         IContainer ApplicationContainer { get; set; }
         IUnitOfWorkContainer CreateUnitOfWork();
+        IUnitOfWorkContainer CreateUnitOfWork(Action<ContainerBuilder> registrations);
     }
 }

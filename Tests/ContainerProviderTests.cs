@@ -1,4 +1,5 @@
-﻿using Autofac.Core.Lifetime;
+﻿using System;
+using Autofac.Core.Lifetime;
 using Autofac.Core.Registration;
 using Autofac;
 using Atlas;
@@ -36,9 +37,35 @@ namespace Tests
             var actual = _provider.CreateUnitOfWork();
 
             Assert.AreNotSame(actual, _applicationContainer);
-
-
         }
 
+        [Test]
+        public void CanRegisterTypesInSeparateUnitsOfWork()
+        {
+            IContainerProvider provider = ContainerProvider.Instance;
+            provider.Instance.ApplicationContainer = new ContainerBuilder().Build();
+
+            var container1 = provider.CreateUnitOfWork(b => b.RegisterType<SomeClass>());
+            var container2 = provider.CreateUnitOfWork();
+
+            Assert.IsFalse(provider.ApplicationContainer.IsRegistered<SomeClass>());
+
+            Assert.IsNotNull(container1.Resolve<SomeClass>());
+
+            try
+            {
+                container2.Resolve<SomeClass>();
+                Assert.Fail();
+            }
+            catch(ComponentNotRegisteredException)
+            {
+                Assert.Pass();
+            }
+        }
+
+    }
+
+    public class SomeClass
+    {
     }
 }

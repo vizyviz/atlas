@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System;
+using System.Collections.Generic;
+using Autofac;
 
 namespace Atlas
 {
@@ -43,6 +45,15 @@ namespace Atlas
         public IUnitOfWorkContainer CreateUnitOfWork()
         {
             return new UnitOfWorkContainer(ApplicationContainer.BeginLifetimeScope());
+        }
+
+        /// <summary>
+        /// Creates a unit of work with unit of work scoped registrations
+        /// </summary>
+        /// <returns></returns>
+        public IUnitOfWorkContainer CreateUnitOfWork(Action<ContainerBuilder> registrations)
+        {
+            return new UnitOfWorkContainer(ApplicationContainer.BeginLifetimeScope(registrations));
         }
     }
 }
