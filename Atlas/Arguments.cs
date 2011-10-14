@@ -20,6 +20,7 @@ namespace Atlas
         private const string UNINSTALLMODE_KEY = "uninstall";
         private const string SHORT_UNINSTALLMODE_KEY = "u";
         private const string START_KEY = "start";
+        private const string SHORT_START_KEY = "s";
 
         private ServiceAccount _account = ServiceAccount.LocalSystem;
         private ServiceStartMode _startMode = ServiceStartMode.Manual;
@@ -159,7 +160,7 @@ namespace Atlas
 
         private InstallMode ParseInstallMode()
         {
-            if (_args.ContainsKey(START_KEY))
+            if (_args.ContainsKey(START_KEY) || _args.ContainsKey(SHORT_START_KEY))
             {
                 return InstallMode.InstallAndStart;
             }

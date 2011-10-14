@@ -53,6 +53,10 @@ namespace Tests
         [TestCase("/install", "-start")]
         [TestCase("/install", "-START")]
         [TestCase("-install", "-start")]
+        [TestCase("/install", "/s")]
+        [TestCase("-install", "-s")]
+        [TestCase("/install", "-s")]
+        [TestCase("-install", "/s")]
         [TestCase("/i", "-start")]
         [TestCase("-i", "-start")]
         [TestCase("/install", "/start")]
@@ -60,6 +64,11 @@ namespace Tests
         [TestCase("/i", "/start")]
         [TestCase("/I", "/stArt")]
         [TestCase("-i", "/start")]
+        [TestCase("-i", "/s")]
+        [TestCase("/i", "-s")]
+        [TestCase("-InStall", "/s")]
+        [TestCase("-install", "/S")]
+        [TestCase("-install", "-S")]
         public void OneArgEqualToInstallStartReturnsInstallAndStartAndIsRunningAsService(string arg1, string arg2)
         {
             var actual = new Arguments(new[] { arg1, arg2 });
