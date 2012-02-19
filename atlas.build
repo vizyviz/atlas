@@ -3,7 +3,6 @@
   <description>Build File for Atlas</description>
 
   <property name="system.directory" value="${project::get-base-directory()}" unless="${property::exists('system.directory')}"/>
-  <property name="system.tools.directory" value="${system.directory}\Tools" />
   <property name="nunit.exe.directory" value="${system.directory}\packages\NUnit.2.5.10.11092\Tools\" />
   <property name="atlas.solution.name" value="Atlas.sln" />
    
@@ -23,12 +22,6 @@
   <!-- ******************************************************************** -->
   <target name="atlas.compile.solution">
     <property name="strong.name.solution" value="false" />
-		
-	<fileset id="assemblyinfo.fileset" basedir="${system.directory}">
-        <include name="**/*/AssemblyInfo.cs" />
-    </fileset>
-
-	<call target="version.assemblies"/>
 	
 	<delete>
 		<fileset basedir="${system.directory}\testsOutput\">
