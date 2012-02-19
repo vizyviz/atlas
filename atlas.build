@@ -8,6 +8,9 @@
    
   <property name="product.name" value="Atlas" />
 
+  <property name="solution.configuration" value="Debug" />
+  <property name="solution.configuration" value="${build.configuration}" if="${property::exists('build.configuration')}" />
+  
   <!-- ******************************************************************** -->
   <!--                               MAIN TARGETS                           -->
   <!-- ******************************************************************** -->
@@ -74,33 +77,5 @@
 			<arg value="/nologo"/>
 		</exec>
 	</target>
-  
-	<!-- Assembly Versioning -->
-	<property name="solution.configuration" value="Debug" />
-	<property name="solution.configuration" value="${build.configuration}" if="${property::exists('build.configuration')}" />
-	<property name="solution.path" value="" />
-	<property name="build.type" value="debug" />
-	<property name="strong.name.assembly" value="false" />
-	
-	<target name="version.assemblies">		
-		<if test="${solution.configuration != 'Debug'}">
-			<echo message="********************************************************************"/>
-			<echo message="Updating version numbers" />
-			
-			<foreach item="File" property="assembly.info">
-				<in>
-					<items refid="assemblyinfo.fileset" />
-				</in>
-				<do>
-					<echo message=""/>
-					<echo message="Updating: ${assembly.info}" />
-					<exec program="${system.tools.directory}\UpdateVersion\UpdateVersion.exe" commandline="-b BuildDay -r Increment -v Assembly -i &quot;${assembly.info}&quot; -o &quot;${assembly.info}&quot;" verbose="true" workingdir="${system.directory}" />
-					<exec program="${system.tools.directory}\UpdateVersion\UpdateVersion.exe" commandline="-b BuildDay -r Increment -v File -i &quot;${assembly.info}&quot; -o &quot;${assembly.info}&quot;" verbose="true" workingdir="${system.directory}" />
-					<echo message=""/>
-				</do>
-			</foreach>
-			<echo message="********************************************************************"/>
-		</if>	
-	</target>    
-  
+
 </project>
