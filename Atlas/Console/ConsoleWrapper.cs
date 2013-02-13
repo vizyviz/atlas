@@ -6,7 +6,7 @@ namespace Atlas.Console
     {
         public ConsoleKey ReadKey()
         {
-            return System.Console.ReadKey().Key;
+            return System.Console.ReadKey(true).Key;
         }
 
         public void WriteLine(string message)
