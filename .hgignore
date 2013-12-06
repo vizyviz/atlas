@@ -1,0 +1,18 @@
+syntax: glob
+Atlas/obj
+Atlas/bin
+Tests/bin
+Tests/obj
+testsOutput
+_ReSharper.Atlas
+Samples/SampleAppFluentConfig/bin
+Samples/SampleAppFluentConfig/obj
+Samples/SampleAppInjectedConfig/bin
+Samples/SampleAppInjectedConfig/obj
+Samples/SampleAppWithConfigFile/bin
+Samples/SampleAppWithConfigFile/obj
+Samples/SampleLibrary/bin
+Samples/SampleLibrary/obj
+*.suo
+*.user
+Atlas/*.nupkg
