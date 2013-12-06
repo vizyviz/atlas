@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Autofac;
 
 namespace Atlas
@@ -9,7 +8,7 @@ namespace Atlas
     /// </summary>
     public class ContainerProvider : IContainerProvider
     {
-        private static IContainerProvider _instance;
+        private static IContainerProvider _instance = new Lazy<IContainerProvider>(() => new ContainerProvider()).Value;
 
         private ContainerProvider()
         {
@@ -20,15 +19,8 @@ namespace Atlas
         /// </summary>
         public static IContainerProvider Instance
         {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new ContainerProvider();
-                }
-                return _instance;
-            }
-            set { _instance = value; }
+            get { return _instance; }
+            internal set { _instance = value; }
         }
 
         IContainerProvider IContainerProvider.Instance { get { return Instance; } }

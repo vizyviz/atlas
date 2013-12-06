@@ -7,7 +7,7 @@ namespace Atlas.Runners
     {
         private readonly IAmAHostedProcess _hostedProcess;
         private readonly IWrapConsole _wrapper;
-
+        
         public ConsoleRunner(IAmAHostedProcess hostedProcess, IWrapConsole wrapper)
         {
             _hostedProcess = hostedProcess;
@@ -36,7 +36,11 @@ namespace Atlas.Runners
 
         private void Process()
         {
-            var key = _wrapper.ReadKey();
+            ConsoleKey key;
+            do
+            {
+                key = _wrapper.ReadKey();
+            } while (key != ConsoleKey.P && key != ConsoleKey.Escape);
             if (key == ConsoleKey.P)
             {
                 Pause();
@@ -44,10 +48,6 @@ namespace Atlas.Runners
             else if (key == ConsoleKey.Escape)
             {
                 Exit();
-            }
-            else
-            {
-                Process();
             }
         }
 
