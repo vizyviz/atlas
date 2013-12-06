@@ -180,7 +180,7 @@ namespace Tests
         [Test]
         public void ConsolesInstallModeIsIgnored()
         {
-            var actual = new Arguments(new[] {"/console /install"});
+            var actual = new Arguments(new[] { "/console /install" });
             Assert.AreEqual(InstallMode.NotSet, actual.InstallMode);
         }
 
@@ -222,7 +222,7 @@ namespace Tests
             string tosplit =
                 "/install -start /username=myuser /password=mypassword -startup=automatic /accounttype=user";
 
-            var result = tosplit.Split(new[] {' '});
+            var result = tosplit.Split(new[] { ' ' });
 
             Assert.AreEqual(6, result.Length);
 
@@ -230,8 +230,8 @@ namespace Tests
 
             foreach (var r in result)
             {
-                var subss = r.Split(new[] {'='});
-                subs.Add(new KeyValuePair<string, string>(subss[0].TrimStart(new []{'/', '-'}), subss.Length > 1? subss[1] : string.Empty));
+                var subss = r.Split(new[] { '=' });
+                subs.Add(new KeyValuePair<string, string>(subss[0].TrimStart(new[] { '/', '-' }), subss.Length > 1 ? subss[1] : string.Empty));
             }
 
             Assert.AreEqual(6, subs.Count);
