@@ -10,5 +10,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <tags>WindowsService, ConsoleApplication, Host</tags>
+	<dependencies>
+	  <dependency id="Autofac" version="[3.3.1]" />
+	</dependencies>
   </metadata>
 </package>
