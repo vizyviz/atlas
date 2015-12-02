@@ -64,6 +64,12 @@ namespace Atlas
         public static Configuration<THostedProcess> UseAppConfig<THostedProcess>() where THostedProcess : IAmAHostedProcess
         {
             var section = (Configuration<object>)ConfigurationManager.GetSection("atlas");
+
+            if (section == null)
+            {
+                throw new ConfigurationErrorsException("Missing atlas section in app.config or web.config");
+            }
+
             return new Configuration<THostedProcess>
                        {
                            AllowsMultipleInstances = section.AllowsMultipleInstances,
