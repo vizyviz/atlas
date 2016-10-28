@@ -1,0 +1,22 @@
+*.orig
+*.suo
+*.user
+*.ReSharper
+_ReSharper.*
+bin
+obj
+*.mdf
+*.ldf
+*.dbmdl
+_TeamCity.*
+Thumbs.db
+**/TestResults/*
+**/testsOutput/*
+# Ignore folder containing IIS Express settings - placed there by VS 2015
+src/.vs/*
+# Ignore NuGet Packages
+*.nupkg
+# Ignore the packages folder
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
