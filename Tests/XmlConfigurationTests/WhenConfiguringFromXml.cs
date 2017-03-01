@@ -178,12 +178,16 @@ namespace Tests.XmlConfigurationTests
             }
 
             [Test]
-            [ExpectedException(ExpectedException = typeof(ConfigurationErrorsException), ExpectedMessage = "Missing configuration")]
             public void ConfigIsEmpty()
             {
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(CONFIG_IS_EMPTY);
-                var section = CreateConfigSection(doc);
+
+                var exception = Assert.Throws<ConfigurationErrorsException>(() =>
+                {
+                    var section = CreateConfigSection(doc);
+                });
+                Assert.AreEqual("Missing configuration", exception.Message);
             }
 
             [Test]
@@ -223,12 +227,15 @@ namespace Tests.XmlConfigurationTests
             }
 
             [Test]
-            [ExpectedException(ExpectedException = typeof(ConfigurationErrorsException), ExpectedMessage = "A name must be specified for dependencies")]
             public void ConfiguringDependencyWithMisingNameAttribute()
             {
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(WITH_DEPDENDENCY_MISSING_NAME);
-                var section = CreateConfigSection(doc);
+                var exception = Assert.Throws<ConfigurationErrorsException>(() =>
+                {
+                    var section = CreateConfigSection(doc);
+                });
+                Assert.AreEqual("A name must be specified for dependencies", exception.Message);
             }
 
             [Test]
@@ -283,12 +290,15 @@ namespace Tests.XmlConfigurationTests
             }
 
             [Test]
-            [ExpectedException(ExpectedException = typeof(ConfigurationErrorsException), ExpectedMessage = "Must specify a name for the hosted service")]
             public void MissingNameAttribute()
             {
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(MISSING_NAME_ATTRIBUTE);
-                var section = CreateConfigSection(doc);
+                var exception = Assert.Throws<ConfigurationErrorsException>(() =>
+                {
+                    var section = CreateConfigSection(doc);
+                });
+                Assert.AreEqual("Must specify a name for the hosted service", exception.Message);
             }
 
             [Test]
@@ -318,7 +328,7 @@ namespace Tests.XmlConfigurationTests
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(RUNTIME_WITHOUT_USERNAME);
                 var section = CreateConfigSection(doc);
-                Assert.IsNullOrEmpty(section.UserName);
+                Assert.IsTrue(string.IsNullOrWhiteSpace(section.UserName));
                 Assert.AreEqual("mypassword", section.Password);
                 Assert.AreEqual(ServiceAccount.NetworkService, section.Account);
                 Assert.AreEqual(ServiceStartMode.Automatic, section.StartMode);
@@ -331,7 +341,7 @@ namespace Tests.XmlConfigurationTests
                 doc.LoadXml(RUNTIME_WITHOUT_PASSWORD);
                 var section = CreateConfigSection(doc);
                 Assert.AreEqual("myusername", section.UserName);
-                Assert.IsNullOrEmpty(section.Password);
+                Assert.IsTrue(string.IsNullOrWhiteSpace(section.Password));
                 Assert.AreEqual(ServiceAccount.NetworkService, section.Account);
                 Assert.AreEqual(ServiceStartMode.Automatic, section.StartMode);
             }
